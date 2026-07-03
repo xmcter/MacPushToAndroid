@@ -1,0 +1,6 @@
+- `[x]` Upgrade configuration schema and update config_helper.py
+- `[x]` Modify forwarder.py to support multiple concurrent channels
+- `[x]` Create web assets (index.html, style.css, app.js) in a new `web` directory
+- `[x]` Write web_config.py to serve the settings page and handle API requests
+- `[x]` Update MenuBarApp.m to open the Web UI instead of TextEdit, compile, and install it
+- `[x]` Verify the setup end-to-end

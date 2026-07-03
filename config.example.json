@@ -1,0 +1,20 @@
+{
+  "enabled_channels": [
+    "email"
+  ],
+  "push_channel": "email",
+  "telegram_bot_token": "YOUR_TELEGRAM_BOT_TOKEN",
+  "telegram_chat_id": "YOUR_TELEGRAM_CHAT_ID",
+  "email_smtp_server": "smtp.qq.com",
+  "email_smtp_port": 465,
+  "email_sender": "your_email@qq.com",
+  "email_password": "your_smtp_authorization_code",
+  "email_receiver": "your_email@qq.com",
+  "auto_launch": true,
+  "poll_interval_seconds": 2,
+  "exclude_apps": [
+    "com.apple.controlcenter",
+    "com.apple.NotificationCenter",
+    "com.apple.wifi"
+  ]
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacPushToAndroid 配置中心</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <span class="logo-icon">🔔</span>
+                <div class="logo-text-group">
+                    <h1>MacPush</h1>
+                    <p class="subtitle">配置中心</p>
+                </div>
+            </div>
+            <nav class="nav-tabs">
+                <button type="button" class="nav-btn active" onclick="switchTab('settings')" id="nav-btn-settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>通道设置</span>
+                </button>
+                <button type="button" class="nav-btn" onclick="switchTab('logs')" id="nav-btn-logs">
+                    <span class="nav-icon">📋</span>
+                    <span>运行日志</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <span class="version-label">v1.0.0</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- TAB 1: Settings -->
+            <div class="tab-content active" id="tab-settings">
+                <!-- Channels Setup -->
+                <section class="channels-section">
+                    <h2>推送渠道设置</h2>
+                    
+                    <!-- Telegram Channel Card -->
+                    <div class="channel-card" id="card-telegram">
+                        <div class="card-header">
+                            <div class="channel-info">
+                                <span class="channel-icon">✈️</span>
+                                <div>
+                                    <h3>Telegram Bot</h3>
+                                    <p>通过 Telegram 机器人接收通知</p>
+                                </div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-telegram">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="card-body collapsible">
+                            <div class="input-group">
+                                <label for="tg-token">Bot Token</label>
+                                <input type="password" id="tg-token" placeholder="例如: 123456789:ABCdefGhIjk...">
+                            </div>
+                            <div class="input-group">
+                                <label for="tg-chatid">Chat ID</label>
+                                <input type="text" id="tg-chatid" placeholder="例如: 987654321">
+                            </div>
+                            <div class="card-actions">
+                                <button type="button" class="btn btn-secondary" onclick="testChannel('telegram')">测试连接</button>
+                            </div>
+                            
+                            <!-- Collapsible Help Documentation -->
+                            <details class="help-details">
+                                <summary>如何获取 Bot Token 和 Chat ID？ (点击展开)</summary>
+                                <div class="help-content">
+                                    <ol>
+                                        <li>打开 Telegram，搜索并关注官方机器人 <code>@BotFather</code>。</li>
+                                        <li>给它发送 <code>/newbot</code> 指令，按照提示为您的机器人命名，即可获得 <strong>Bot Token</strong>。</li>
+                                        <li>在 Telegram 中搜索并关注您自己刚刚创建的那个机器人，并点击 <strong>Start</strong>。</li>
+                                        <li>然后，在 Telegram 中搜索关注机器人 <code>@userinfobot</code>，给它发送任意消息即可查看到您自己的 <strong>Chat ID</strong>。</li>
+                                    </ol>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- Email Channel Card -->
+                    <div class="channel-card" id="card-email">
+                        <div class="card-header">
+                            <div class="channel-info">
+                                <span class="channel-icon">✉️</span>
+                                <div>
+                                    <h3>电子邮件 (SMTP)</h3>
+                                    <p>通过您的邮箱接收推送通知</p>
+                                </div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-email">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="card-body collapsible">
+                            <div class="settings-grid" style="grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px;">
+                                <div class="input-group" style="margin-bottom: 0;">
+                                    <label for="email-server">SMTP 服务器</label>
+                                    <input type="text" id="email-server" placeholder="例如: smtp.qq.com">
+                                </div>
+                                <div class="input-group" style="margin-bottom: 0;">
+                                    <label for="email-port">端口 (SSL)</label>
+                                    <input type="number" id="email-port" placeholder="465" value="465">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="email-sender">发件人邮箱</label>
+                                <input type="email" id="email-sender" placeholder="您的邮箱地址">
+                            </div>
+                            <div class="input-group">
+                                <label for="email-password">SMTP 密码/授权码</label>
+                                <input type="password" id="email-password" placeholder="授权码（在邮箱设置中获取）">
+                            </div>
+                            <div class="input-group">
+                                <label for="email-receiver">收件人邮箱</label>
+                                <input type="email" id="email-receiver" placeholder="接收通知的邮箱">
+                            </div>
+                            <div class="card-actions">
+                                <button type="button" class="btn btn-secondary" onclick="testChannel('email')">测试连接</button>
+                            </div>
+                            
+                            <!-- Collapsible Help Documentation -->
+                            <details class="help-details">
+                                <summary>如何配置邮箱 SMTP 服务？ (点击展开)</summary>
+                                <div class="help-content">
+                                    <strong>以主流的 QQ 邮箱为例：</strong>
+                                    <ol>
+                                        <li><strong>SMTP 服务器</strong> 填写 <code>smtp.qq.com</code>，<strong>端口</strong> 填写 <code>465</code>。</li>
+                                        <li><strong>发件人邮箱</strong> 填写您的完整 QQ 邮箱地址。</li>
+                                        <li><strong>SMTP 密码/授权码</strong>：填写获取到的 16 位授权码。</li>
+                                        <li><strong>收件人邮箱</strong> 填写您用来接收通知的任意邮箱。</li>
+                                    </ol>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Global Settings Section -->
+                <section class="global-section">
+                    <h2>全局高级设置</h2>
+                    <div class="settings-grid">
+                        <div class="input-group" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 14px 18px; border-radius: 12px; margin-bottom: 16px;">
+                            <div>
+                                <label style="margin-bottom: 2px; text-transform: none; font-size: 14px; color: var(--text-primary); letter-spacing: 0;">开机自启动</label>
+                                <span style="font-size: 12px; color: var(--text-secondary);">在 Mac 登录时自动后台运行此服务</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-autolaunch">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="input-group" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 14px 18px; border-radius: 12px; margin-bottom: 16px;">
+                            <div>
+                                <label style="margin-bottom: 2px; text-transform: none; font-size: 14px; color: var(--text-primary); letter-spacing: 0;">使用 Mac 时免打扰</label>
+                                <span style="font-size: 12px; color: var(--text-secondary);">活跃操作 Mac 时，不转发重复通知到手机</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-mute-active">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label for="poll-interval">数据库轮询间隔 (秒)</label>
+                            <input type="number" id="poll-interval" min="0.5" step="0.5" value="2.0">
+                        </div>
+                        <div class="input-group">
+                            <label for="exclude-apps">排除的 App Bundle ID (每行一个)</label>
+                            <textarea id="exclude-apps" rows="4" placeholder="com.apple.controlcenter"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <footer style="margin-top: 12px; padding-bottom: 30px;">
+                    <button type="button" class="btn btn-primary" id="btn-save" onclick="saveSettings()">保存全部配置</button>
+                </footer>
+            </div>
+
+            <!-- TAB 2: Running Logs -->
+            <div class="tab-content" id="tab-logs">
+                <div class="logs-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 8px;">
+                    <h2>运行日志</h2>
+                    <button type="button" class="btn btn-secondary" onclick="loadLogs()" style="padding: 6px 14px; font-size: 12px; border-radius: 8px;">刷新日志</button>
+                </div>
+                <div class="log-viewer-container" style="flex: 1; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 16px; overflow: auto; display: flex; flex-direction: column;">
+                    <pre id="log-text" style="margin: 0; white-space: pre-wrap; word-break: break-all; font-family: 'SFMono-Medium', 'Fira Code', monospace; font-size: 12px; color: #e2e8f0; line-height: 1.6; height: 380px; overflow-y: auto;">正在加载日志...</pre>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

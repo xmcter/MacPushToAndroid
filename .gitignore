@@ -1,0 +1,16 @@
+# Secrets
+config.json
+
+# Log and PID files
+*.log
+*.pid
+.last_id
+.daemon.pid
+
+# macOS Specific
+.DS_Store
+
+# Compiled app and builds
+dist/
+build/
+*.app/
