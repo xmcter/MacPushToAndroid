@@ -1,5 +1,9 @@
 # MacPushToAndroid
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) ![Python](https://img.shields.io/badge/python-3.x-blue.svg)
+
+> macOS notification forwarder — relays system notifications to Telegram/Email when you're away from your Mac.
+
 macOS 通知转发助手。当你在 Mac 上处于空闲状态时，自动将接收到的 macOS 系统通知转发到你的手机（通过 Telegram Bot 或电子邮件）。
 
 ## 功能特性
